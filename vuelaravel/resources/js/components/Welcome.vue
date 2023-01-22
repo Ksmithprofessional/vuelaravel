@@ -1,44 +1,52 @@
 <template>
 
-<div class="grid grid-cols-3 w-full">
+<div class="grid grid-rows-[95px_1fr] w-full h-[85vh]">
 
-  <div class="border-r-4 p-4">
+  <div class="menu bg-[#282634] text-white">
 
-  <!-- left items menu -->
-  <ul>
-    <RouterLink to="/"><li>Home</li></RouterLink>
-    <RouterLink to="/cpu"><li>CPU</li></RouterLink>
-    <RouterLink to="/motherboard"><li>Motherboard</li></RouterLink>
-    <RouterLink to="/gpu"><li>GPU</li></RouterLink>
-    <RouterLink to="/ram"><li>RAM</li></RouterLink>
-    <RouterLink to="/storage"><li>Storage</li></RouterLink>
-    <RouterLink to="/power"><li>Power Supply</li></RouterLink>
-    <RouterLink to="/custom"><li>Custom Item</li></RouterLink>
-    <RouterLink to="/checkout"><li>Checkout</li></RouterLink>
+    <img src="../../../public/logo.png">
 
-  </ul>
+    <!-- left items menu  bg-[#36454F]-->
+
+    <ul>
+      <RouterLink to="/"><li>Home</li></RouterLink>
+      <RouterLink to="/cpu"><li>CPU</li></RouterLink>
+      <RouterLink to="/motherboard"><li>Motherboard</li></RouterLink>
+      <RouterLink to="/gpu"><li>GPU</li></RouterLink>
+      <RouterLink to="/ram"><li>RAM</li></RouterLink>
+      <RouterLink to="/storage"><li>Storage</li></RouterLink>
+      <RouterLink to="/power"><li>Power Supply</li></RouterLink>
+      <RouterLink to="/custom"><li>Custom Item</li></RouterLink>
+      <RouterLink to="/checkout"><li>Checkout</li></RouterLink>
+
+    </ul>
 
   </div>
+
+  <div class="main">
   <!-- should probably go in it's own component stored as the button to add or subtract items -->
-  <div class="col-span-2 p-8">
+    <div class="main-sub-container p-12 w-[80%] my-0 mx-auto">
+      <!-- on item component if route = suchandsuch then get that item. store items in json data or sql table? -->
+      <!-- leads to a warn that prop doesn't have anything done to it on most of the components -->
+      <router-view @add="add" :quoteSubmit="quoteSubmit" :total="total"></router-view>
 
-    <!-- on item component if route = suchandsuch then get that item. store items in json data or sql table? -->
-    <!-- leads to a warn that prop doesn't have anything done to it on most of the components -->
-    <router-view @add="add" :quoteSubmit="quoteSubmit" :total="total"></router-view>
-
-  </div>   
+    </div>  
+  
+  </div>
 
 </div> 
 
-<div class="checkout border-t-4 w-full fixed bottom-0 h-24 grid grid-cols-4" style="overflow:scroll">
-  <div  class="col-span-2">
+<div class="checkout fixed h-[15vh] bg-[#282634] text-white">
+  <div class="checkout-sub grid grid-cols-4 my-0 mx-auto w-[80%]">
+    <div class="quote-items col-span-2 p-3 px-2">
 
-    <p v-for="item in quote" @click="deleteItem(item)">{{item[0]}}, £{{ item[1] }}, {{ item[2].value }}</p>
-  </div>
+      <p style="hover{color:red; cursor:pointer;}" v-for="item in quote" @click="deleteItem(item)">{{item[0]}}, £{{ item[1] }}, {{ item[2] }}</p>
+    </div>
 
-  <p>Subtotal: £{{ subTotal }}</p>
-  <p>Total(with 20% Vat): £{{ total }}</p>
+    <p class=" sub-total py-3 px-2">Subtotal: £{{ subTotal }}</p>
+    <p class="total py-3 px-2">Total(+ 20% Vat): £{{ total }}</p>
   
+  </div>
 </div>
 </template>
 <script>
@@ -66,20 +74,46 @@ export default {
 
     const add = (i) => {
 
+      // console.log(i)
+      let item = i[0];
+      let cost = i[1];
+      let quantity = i[2];
+      let data = [item, cost, quantity]
+      // console.log(quote.value.indexOf(i));
+      // quote.value.forEach(element => console.log(element));
+      // works if i don't push data as an array
+
+      let check = '';
+
+      let checkQuote = quote.value.forEach(element => {
+        
+        // console.log(element.indexOf(item));
+        if (element.indexOf(item) === 0) {
+          check = true;
+        }
+      
+      });
+      // console.log(checkQuote)
+      if (check === true) {
+        alert('Item already in quote, please delete it if you want to add it again');
+        // successfully blocks multiple entries of i but not data. Needs to probably alert that though
+      } else {
       // needs two arguments, i == data, and count. Count should be passed up into items.vue and then should be passed into the emit.
       // adds multiple instances of same value, needs an "if exists in quote array, don't add again"
       quote.value.push(i);
-      quoteSubmit.value.push(i[0], i[1], i[2].value);
-      subTotal.value += i[1] * i[2].value;
+      quoteSubmit.value.push(i);
+      subTotal.value += cost * quantity;
       total.value = subTotal.value + (subTotal.value / 5); //20% vat calc
       // console.log(quoteSubmit.value)
+      // console.log(quote.value.forEach());
+      }
     }
 
     const deleteItem = (i) => {
 
       const thing = quote.value.indexOf(i);
 
-      subTotal.value -= i[1] * i[2].value;
+      subTotal.value -= i[1] * i[2];
       total.value = subTotal.value + (subTotal.value / 5);
       quote.value.splice(thing, 1);
       quoteSubmit.value.splice(thing, 1);

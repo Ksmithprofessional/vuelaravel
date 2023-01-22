@@ -2,6 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\CheckoutController;
+use App\Models\checkout;
+use App\Mail\Email;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,5 +23,10 @@ Route::get('/{any}', function () {
     return view('welcome');
 })->where("any", ".*");
 
-// route::post('/checkout', [checkoutcontroller::class, 'store'])
+// Route::post('/checkout', function () {
+//     ddd(request(DB::table('checkouts')));
+// });
+
+Route::post('/checkout', [CheckoutController::class, 'store']);
+
 //create migrations table, model, controller

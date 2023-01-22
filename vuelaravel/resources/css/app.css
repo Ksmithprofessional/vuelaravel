@@ -1,3 +1,271 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.main {
+
+    background: linear-gradient(#94c1f3, #E3E8F0);
+    /* background: linear-gradient(#630606, #da1414); */
+}
+
+.menu img {
+
+    display:none;
+}
+
+.item {
+
+    border: 1px solid black;
+    border-radius: 2%;
+    background-color: white;
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+hr {
+
+    margin-bottom: 10px; 
+    border-color: black;
+}
+
+.plus-button {
+
+    width:30px;
+    height: 30px;
+    background-color: rgb(124, 65, 151);
+    border: 2px solid rgb(61, 15, 63);
+    border-radius: 25%;
+    color: white;
+    margin-right: 5px;
+}
+
+.minus-button {
+
+    width:30px;
+    height: 30px;
+    background-color: rgb(182, 95, 68);
+    border: 2px solid rgb(133, 68, 48);
+    border-radius: 25%;
+    color: white;
+    margin-right: 5px;
+}
+
+.quote-add {
+
+    width: fit-content;
+    background-color: rgb(151, 117, 65);
+    border: 2px solid rgb(63, 42, 15);
+    border-radius: 5%;
+    color: white;
+    padding: 2px 10px;
+}
+
+a:hover {
+
+    color: green;
+}
+
+.router-link-active {
+
+    text-decoration: underline;
+    color: green;
+}
+
+ul {
+
+    margin-top: 10px;
+    display: flex;
+    width: 80vw;
+    flex-wrap: wrap;
+    margin: 20px auto;
+    place-content: center;
+}
+
+li {
+
+    margin-right: 15px;
+}
+
+
+input {
+
+    border: 1px solid black;
+    margin-bottom: 30px;
+    width: 100%;
+    padding:5px;
+}
+
+textarea {
+
+    border: 1px solid black;
+    margin-bottom: 30px;
+    width: 100%;
+    padding: 5px;
+}
+
+fieldset {
+
+    border: 1px solid black;
+    border-radius: 2%;
+    background-color: white;
+    width: 100%;
+    height: 70%;
+    padding: 15px;
+}
+
+legend {
+
+    font-weight:bold;
+    border-top: 1px solid black;
+    background-color: white;
+    border-bottom: none;
+    position:relative;
+    padding: 5px;
+}
+
+legend:after {
+
+    content: '';
+    height:17px;
+    width:1px;
+    background-color: black;
+    position: absolute;
+    right:0;
+    top:0;
+}
+
+legend:before {
+
+    content: '';
+    height:17px;
+    width:1px;
+    background-color: black;
+    position: absolute;
+    left:0;
+    top:0;
+}
+
+.checkout {
+
+    /* border-top: 2px solid grey; */
+    bottom: 0;
+    width: 100vw;
+    overflow: scroll;
+    /* background-color: black; */
+}
+
+.quote-items p {
+
+    padding-bottom: 10px;
+}
+
+.quote-items p:hover {
+    color:red; 
+    cursor:pointer;
+}
+
+@media screen and (min-width: 560px) {
+
+    .item {
+
+        width: 350px;
+        margin: 0 auto 20px;
+    }
+}
+
+@media screen and (min-width: 840px) {
+
+    fieldset {
+
+        width: 575px;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (min-width: 1060px) {
+
+    .menu {
+
+        position: fixed;
+        height: 100vh;
+        width: 160px;
+    }
+
+    .menu img {
+
+        display:block;
+    }
+
+    ul {
+
+        display: block;
+        width: 100%;
+        margin: unset;
+        margin-top: 50px;
+    }
+
+    li {
+
+        margin: 15px 0;
+        padding: 10px 20px;
+        transition: background-color 0.7s ease;
+    }
+
+    li:hover {
+
+        /* border: 1px solid black; */
+        background-color: #1b2329;
+    }
+
+    .main {
+
+        height:100vh;
+    }
+
+    .checkout {
+
+        /* border-left: 4px solid grey; */
+        border-top: unset;
+        bottom: unset;
+        right: 0;
+        top: 0;
+        width: 15vw;
+        height: 100vh;
+        overflow: unset;
+    }
+
+    .checkout-sub {
+
+        display: block;
+        grid-template-columns: unset;
+        height: 100vh;
+        width: 100%;
+    }
+
+    .quote-items {
+
+        overflow-y: scroll;
+        border-bottom: 1px solid white;
+        padding-top: 1.75rem;
+        height: 90vh;
+    }
+
+    .main-sub-container {
+
+        padding-top: 15vh;
+    }
+
+    .sub-total {
+
+        padding-bottom: 4px;
+    }
+
+    .total {
+
+        padding-right: 15px;
+        padding-top: 4px;
+    }
+}
