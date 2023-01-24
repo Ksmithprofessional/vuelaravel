@@ -16,8 +16,8 @@ class CreateCheckoutsTable extends Migration
         Schema::create('checkouts', function (Blueprint $table) {
             $table->id();
             $table->string('email');
-            $table->string('quote');
-            $table->string('price');
+            $table->string('quote', 2055);
+            $table->bigInteger('price');
             $table->date('updated_at')->nullable();
             $table->date('created_at')->nullable();
         });
